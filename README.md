@@ -35,13 +35,13 @@ A lightweight browser extension that helps you quickly navigate **user questions
 ## 🖼 Screenshots | 效果图
 
 ### Expanded Panel | 展开状态
-![Expanded Panel](1.jpg)
+![Expanded Panel](Effects/1.jpg)
 
 右侧面板展开，显示完整的用户问题列表  
 Right-side panel expanded, showing the full list of user questions
 
 ### Collapsed Panel | 折叠状态
-![Collapsed Panel](2.jpg)
+![Collapsed Panel](Effects/2.jpg)
 
 面板折叠以节省屏幕空间  
 Panel collapsed to save screen space
