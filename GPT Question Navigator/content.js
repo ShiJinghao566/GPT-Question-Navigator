@@ -97,9 +97,7 @@
     const host = window.location.host;
     if (host.includes("gemini.google.com")) {
       return Array.from(
-        document.querySelectorAll(
-          ".user-query-bubble-with-background .query-text-line"
-        )
+        document.querySelectorAll(".user-query-bubble-with-background")
       );
     }
 
