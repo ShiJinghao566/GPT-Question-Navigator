@@ -1,4 +1,4 @@
-#。GPT Question Navigator
+# GPT Question Navigator
 
 一个轻量级的浏览器扩展，用于在 ChatGPT / Gemini 的长对话中**快速导航用户提问（User Prompts）**。
 
