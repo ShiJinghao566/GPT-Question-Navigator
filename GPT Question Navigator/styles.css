@@ -1,0 +1,100 @@
+#gpt-question-nav-panel {
+  position: fixed;
+  top: 80px;
+  right: 16px;
+  width: 280px;
+  max-height: calc(100vh - 120px);
+  overflow: hidden;
+  background: #f8f4ec;
+  color: #1f1a12;
+  border: 1px solid #d9cbb5;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  font-family: "Avenir Next", "Avenir", "Gill Sans", "Trebuchet MS", sans-serif;
+  z-index: 9999;
+}
+
+#gpt-question-nav-panel.gpt-question-nav-collapsed {
+  width: 140px;
+  max-height: 48px;
+}
+
+.gpt-question-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid #d9cbb5;
+  background: linear-gradient(135deg, #f2e6d3, #f8f4ec 60%);
+}
+
+.gpt-question-nav-title {
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.gpt-question-nav-toggle {
+  border: 1px solid #bca98c;
+  background: #fff3df;
+  color: #362b1b;
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.gpt-question-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 10px 12px;
+  max-height: calc(100vh - 170px);
+  overflow: auto;
+}
+
+.gpt-question-nav-item {
+  margin: 0 0 8px 0;
+}
+
+.gpt-question-nav-link {
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+  background: #fff;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.35;
+  cursor: pointer;
+  color: #2a2114;
+  transition: border 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gpt-question-nav-link:hover {
+  border-color: #c7ab7b;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.14);
+}
+
+.gpt-question-nav-highlight {
+  outline: 3px solid #f1c671;
+  outline-offset: 4px;
+}
+
+@media (max-width: 900px) {
+  #gpt-question-nav-panel {
+    width: 220px;
+    right: 8px;
+  }
+}
+
+@media (max-width: 680px) {
+  #gpt-question-nav-panel {
+    position: fixed;
+    top: auto;
+    bottom: 16px;
+    right: 16px;
+    width: 200px;
+  }
+}
