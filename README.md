@@ -1,4 +1,4 @@
-# GPT Question Navigator
+#。GPT Question Navigator
 
 一个轻量级的浏览器扩展，用于在 ChatGPT / Gemini 的长对话中**快速导航用户提问（User Prompts）**。
 
@@ -35,13 +35,13 @@ A lightweight browser extension that helps you quickly navigate **user questions
 ## 🖼 Screenshots | 效果图
 
 ### Expanded Panel | 展开状态
-![Expanded Panel](Effects/1.jpg)
+![Expanded Panel](Effects/1.png)
 
 右侧面板展开，显示完整的用户问题列表  
 Right-side panel expanded, showing the full list of user questions
 
 ### Collapsed Panel | 折叠状态
-![Collapsed Panel](Effects/2.jpg)
+![Collapsed Panel](Effects/2.png)
 
 面板折叠以节省屏幕空间  
 Panel collapsed to save screen space
@@ -50,16 +50,16 @@ Panel collapsed to save screen space
 
 ## 📦 Installation (Unpacked) | 安装方式（解压安装）
 
-1. 打开 Chrome 或 Edge，访问  
+1. 打开 Chrome 或 Edge，访问管理扩展。  
    Open Chrome or Edge and go to:  
    `chrome://extensions`
 
 2. 启用 **Developer mode（开发者模式）**
 
-3. 点击 **Load unpacked（加载已解压的扩展程序）**
+3. 点击。**Load unpacked（加载已解压的扩展程序）**
 
-4. 选择本项目所在文件夹  
-   Select the project folder
+4. 选择本项目下的 **GPT Question Navigator** 文件夹。  
+   Select the project folder-**GPT Question Navigator**
 
 ---
 
