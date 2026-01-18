@@ -2,6 +2,13 @@
   const PANEL_ID = "gpt-question-nav-panel";
   const LIST_ID = "gpt-question-nav-list";
   const TOGGLE_ID = "gpt-question-nav-toggle";
+  const RESIZE_ID = "gpt-question-nav-resize";
+  const WIDTH_KEY = "gpt-question-nav-width";
+  const HEIGHT_KEY = "gpt-question-nav-height";
+  const TOP_KEY = "gpt-question-nav-top";
+  const MIN_WIDTH = 200;
+  const MAX_WIDTH = 420;
+  const MIN_HEIGHT = 200;
 
   const buildPanel = () => {
     if (document.getElementById(PANEL_ID)) return;
@@ -24,6 +31,23 @@
 
     toggle.addEventListener("click", () => {
       panel.classList.toggle("gpt-question-nav-collapsed");
+      if (panel.classList.contains("gpt-question-nav-collapsed")) {
+        panel.dataset.gptQuestionHeight =
+          panel.style.height || `${panel.offsetHeight}px`;
+        panel.style.height = "48px";
+      } else {
+        const restored =
+          panel.dataset.gptQuestionHeight ||
+          window.localStorage.getItem(HEIGHT_KEY);
+        if (restored) {
+          const restoredNumber = Number(restored);
+          panel.style.height = Number.isFinite(restoredNumber)
+            ? `${restoredNumber}px`
+            : restored;
+        } else {
+          panel.style.removeProperty("height");
+        }
+      }
       toggle.textContent = panel.classList.contains("gpt-question-nav-collapsed")
         ? "Show"
         : "Hide";
@@ -36,10 +60,37 @@
     list.id = LIST_ID;
     list.className = "gpt-question-nav-list";
 
+    const resizer = document.createElement("div");
+    resizer.id = RESIZE_ID;
+    resizer.className = "gpt-question-nav-resize";
+    resizer.setAttribute("aria-hidden", "true");
+
+    const heightResizer = document.createElement("div");
+    heightResizer.className = "gpt-question-nav-resize-vertical";
+    heightResizer.setAttribute("aria-hidden", "true");
+
     panel.appendChild(header);
     panel.appendChild(list);
+    panel.appendChild(resizer);
+    panel.appendChild(heightResizer);
 
     document.body.appendChild(panel);
+
+    const savedWidth = Number(window.localStorage.getItem(WIDTH_KEY));
+    if (Number.isFinite(savedWidth) && savedWidth >= MIN_WIDTH) {
+      panel.style.width = `${Math.min(savedWidth, MAX_WIDTH)}px`;
+    }
+
+    const savedHeight = Number(window.localStorage.getItem(HEIGHT_KEY));
+    if (Number.isFinite(savedHeight) && savedHeight >= MIN_HEIGHT) {
+      panel.style.height = `${savedHeight}px`;
+    }
+
+    const savedTop = Number(window.localStorage.getItem(TOP_KEY));
+    if (Number.isFinite(savedTop) && savedTop >= 0) {
+      panel.style.top = `${savedTop}px`;
+      panel.style.bottom = "auto";
+    }
   };
 
   const getQuestionElements = () => {
@@ -117,9 +168,112 @@
     };
   };
 
+  const initResize = () => {
+    const panel = document.getElementById(PANEL_ID);
+    const resizer = document.getElementById(RESIZE_ID);
+    const header = panel?.querySelector(".gpt-question-nav-header");
+    const heightResizer = panel?.querySelector(
+      ".gpt-question-nav-resize-vertical"
+    );
+    if (!panel || !resizer || !header || !heightResizer) return;
+
+    let startX = 0;
+    let startWidth = 0;
+    let resizing = false;
+    let startY = 0;
+    let startHeight = 0;
+    let resizingHeight = false;
+    let dragging = false;
+    let dragStartY = 0;
+    let dragStartTop = 0;
+
+    const onMove = (event) => {
+      if (!resizing) return;
+      const delta = startX - event.clientX;
+      const nextWidth = Math.min(
+        MAX_WIDTH,
+        Math.max(MIN_WIDTH, startWidth + delta)
+      );
+      panel.style.width = `${nextWidth}px`;
+    };
+
+    const onUp = () => {
+      if (!resizing) return;
+      resizing = false;
+      panel.classList.remove("gpt-question-nav-resizing");
+      window.localStorage.setItem(WIDTH_KEY, panel.offsetWidth.toString());
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    };
+
+    resizer.addEventListener("mousedown", (event) => {
+      resizing = true;
+      startX = event.clientX;
+      startWidth = panel.offsetWidth;
+      panel.classList.add("gpt-question-nav-resizing");
+      window.addEventListener("mousemove", onMove);
+      window.addEventListener("mouseup", onUp);
+    });
+
+    const onHeightMove = (event) => {
+      if (!resizingHeight) return;
+      const delta = event.clientY - startY;
+      const nextHeight = Math.max(MIN_HEIGHT, startHeight + delta);
+      panel.style.height = `${nextHeight}px`;
+    };
+
+    const onHeightUp = () => {
+      if (!resizingHeight) return;
+      resizingHeight = false;
+      panel.classList.remove("gpt-question-nav-resizing");
+      window.localStorage.setItem(HEIGHT_KEY, panel.offsetHeight.toString());
+      window.removeEventListener("mousemove", onHeightMove);
+      window.removeEventListener("mouseup", onHeightUp);
+    };
+
+    heightResizer.addEventListener("mousedown", (event) => {
+      if (panel.classList.contains("gpt-question-nav-collapsed")) return;
+      resizingHeight = true;
+      startY = event.clientY;
+      startHeight = panel.offsetHeight;
+      panel.classList.add("gpt-question-nav-resizing");
+      window.addEventListener("mousemove", onHeightMove);
+      window.addEventListener("mouseup", onHeightUp);
+    });
+
+    const onDragMove = (event) => {
+      if (!dragging) return;
+      const delta = event.clientY - dragStartY;
+      const maxTop = Math.max(0, window.innerHeight - panel.offsetHeight);
+      const nextTop = Math.min(maxTop, Math.max(0, dragStartTop + delta));
+      panel.style.top = `${nextTop}px`;
+      panel.style.bottom = "auto";
+    };
+
+    const onDragUp = () => {
+      if (!dragging) return;
+      dragging = false;
+      panel.classList.remove("gpt-question-nav-dragging");
+      window.localStorage.setItem(TOP_KEY, panel.offsetTop.toString());
+      window.removeEventListener("mousemove", onDragMove);
+      window.removeEventListener("mouseup", onDragUp);
+    };
+
+    header.addEventListener("mousedown", (event) => {
+      if (event.target.closest("button")) return;
+      dragging = true;
+      dragStartY = event.clientY;
+      dragStartTop = panel.offsetTop;
+      panel.classList.add("gpt-question-nav-dragging");
+      window.addEventListener("mousemove", onDragMove);
+      window.addEventListener("mouseup", onDragUp);
+    });
+  };
+
   const init = () => {
     buildPanel();
     renderList();
+    initResize();
 
     const observer = new MutationObserver(
       debounce(() => {
