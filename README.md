@@ -21,6 +21,9 @@ A lightweight browser extension that helps you quickly navigate **user questions
 - 轻量、无配置、即装即用  
   Lightweight, no configuration required
 
+- 可点击面板上侧拖动位置，并根据需要调整宽度与高度  
+  Draggable panel with adjustable width and height
+
 ---
 
 ## 🖥 Supported Websites | 支持的网站
