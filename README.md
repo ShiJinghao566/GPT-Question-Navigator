@@ -28,9 +28,7 @@ A lightweight browser extension that helps you quickly navigate **user questions
 
 ## 🖥 Supported Websites | 支持的网站
 
-- https://chat.openai.com/*
 - https://chatgpt.com/*
-- https://*.openai.com/*
 - https://gemini.google.com/*
 
 ---
