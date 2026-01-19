@@ -100,6 +100,15 @@
         document.querySelectorAll(".user-query-bubble-with-background")
       );
     }
+    if (host.includes("doubao.com")) {
+      return Array.from(document.querySelectorAll('[data-testid="message_text_content"]'))
+        .filter(el => {
+          const msgContainer = el.closest('div[class*="container-"]') || el.parentElement;
+          return msgContainer && 
+                msgContainer.classList.contains('container-QQkdo4') && 
+                !msgContainer.closest('[class*="assistant"], [class*="bot"], [class*="reply"]');
+        });
+    }
 
     return Array.from(
       document.querySelectorAll('[data-message-author-role="user"]')
@@ -110,6 +119,9 @@
     const host = window.location.host;
     if (host.includes("gemini.google.com")) {
       return el.closest(".user-query-bubble-with-background") || el;
+    }
+    if (host.includes("doubao.com")) {
+      return el.closest('div[class*="message"]') || el.closest('[data-testid="message_text_content"]') || el;
     }
     return el.closest("conversation-actions") || el;
   };
