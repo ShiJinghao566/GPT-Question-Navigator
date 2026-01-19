@@ -30,8 +30,7 @@ A lightweight browser extension that helps you quickly navigate **user questions
 
 - https://chatgpt.com/*
 - https://gemini.google.com/*
-- https://*.doubao.com/*
-- https://chat.deepseek.com/*
+- https://www.doubao.com/*
 
 ---
 
