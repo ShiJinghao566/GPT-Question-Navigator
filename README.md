@@ -1,8 +1,8 @@
 # GPT Question Navigator
 
-一个轻量级的浏览器扩展，用于在 ChatGPT / Gemini 的长对话中**快速导航用户提问（User Prompts）**。
+一个轻量级的浏览器扩展，用于在 ChatGPT / Gemini / 豆包 / DeepSeek 的长对话中**快速导航用户提问（User Prompts）**。
 
-A lightweight browser extension that helps you quickly navigate **user questions (prompts)** in long ChatGPT / Gemini conversations.
+A lightweight browser extension that helps you quickly navigate **user questions (prompts)** in long ChatGPT / Gemini / doubao / DeepSeek conversations.
 
 ---
 
@@ -30,6 +30,8 @@ A lightweight browser extension that helps you quickly navigate **user questions
 
 - https://chatgpt.com/*
 - https://gemini.google.com/*
+- https://*.doubao.com/*
+- https://chat.deepseek.com/*
 
 ---
 
